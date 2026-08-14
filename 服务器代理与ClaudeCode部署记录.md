@@ -71,7 +71,10 @@ can't download GeoSite.dat: context deadline exceeded
 **原因**：mihomo 依赖的域名分流规则库文件（GeoSite.dat）本地已损坏，程序试图自动从 GitHub 重新下载，但此时代理还没搭起来，服务器本身没有出国能力去下载——典型的"先有鸡还是先有蛋"问题。
 
 **解决办法**：换一个当时能连通的下载源（或从其他能联网的机器下载后 scp 传过去），手动把正确的 `GeoSite.dat` / `geoip.metadb` 放到 `~/clash/` 目录下，跳过 mihomo 自动下载这一步。
-
+```
+curl -L -o geosite.dat   https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat
+curl -L -o geoip.metadb  https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.metadb
+```
 **解决的问题**：补齐了 mihomo 启动所需的规则文件，让 mihomo 能正常加载配置、完成初始化。
 
 ### 3. 验证代理生效
